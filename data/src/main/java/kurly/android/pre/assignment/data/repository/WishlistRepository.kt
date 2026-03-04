@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class WishlistRepository @Inject constructor(
     private val dataStore: DataStore<Preferences>,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    @param:IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) {
 
     val wishlist: Flow<Result<Set<String>>> = dataStore.data

@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import kurly.android.pre.assignment.R
-import kurly.android.pre.assignment.ui.main.ProductUiModel
+import kurly.android.pre.assignment.ui.main.model.ProductUiModel
 
 private val DiscountColor = Color(0xFFFA622F)
 

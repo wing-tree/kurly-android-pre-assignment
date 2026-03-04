@@ -1,24 +1,15 @@
 package kurly.android.pre.assignment.ui.main
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -35,8 +26,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
-import kurly.android.pre.assignment.ui.main.component.HorizontalGridProductCard
-import kurly.android.pre.assignment.ui.main.component.VerticalProductCard
+import kurly.android.pre.assignment.ui.main.component.GridSection
+import kurly.android.pre.assignment.ui.main.component.HorizontalSection
+import kurly.android.pre.assignment.ui.main.component.VerticalSection
 import org.orbitmvi.orbit.compose.collectAsState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -82,6 +74,7 @@ fun MainScreen(
                     key = { _, section -> section.id },
                 ) { index, section ->
                     SectionTitle(title = section.title)
+
                     when (section.type) {
                         "horizontal" -> HorizontalSection(
                             products = section.products,
@@ -101,6 +94,7 @@ fun MainScreen(
                             onWishToggle = viewModel::toggleWishlist,
                         )
                     }
+
                     if (index < state.sections.lastIndex) {
                         SectionDivider()
                     }
@@ -141,81 +135,4 @@ private fun SectionDivider() {
             .height(8.dp)
             .background(Color.DarkGray),
     )
-}
-
-@Composable
-private fun HorizontalSection(
-    products: List<ProductUiModel>,
-    wishlist: Set<String>,
-    onWishToggle: (Int) -> Unit,
-) {
-    LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(horizontal = 16.dp),
-    ) {
-        items(products, key = { it.id }) { product ->
-            HorizontalGridProductCard(
-                product = product,
-                isWished = product.id.toString() in wishlist,
-                onWishToggle = { onWishToggle(product.id) },
-                modifier = Modifier.width(150.dp),
-            )
-        }
-    }
-    Spacer(modifier = Modifier.height(16.dp))
-}
-
-@Composable
-private fun GridSection(
-    products: List<ProductUiModel>,
-    wishlist: Set<String>,
-    onWishToggle: (Int) -> Unit,
-) {
-    val items = products.take(6)
-    Column(
-        modifier = Modifier.padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        for (rowIndex in 0 until 2) {
-            Row(
-                modifier = Modifier.fillMaxWidth().horizontalScroll(state = rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                for (colIndex in 0 until 3) {
-                    val index = rowIndex * 3 + colIndex
-                    if (index < items.size) {
-                        val product = items[index]
-                        HorizontalGridProductCard(
-                            product = product,
-                            isWished = product.id.toString() in wishlist,
-                            onWishToggle = { onWishToggle(product.id) },
-                            modifier = Modifier.width(150.dp),
-                        )
-                    }
-                }
-            }
-        }
-    }
-    Spacer(modifier = Modifier.height(16.dp))
-}
-
-@Composable
-private fun VerticalSection(
-    products: List<ProductUiModel>,
-    wishlist: Set<String>,
-    onWishToggle: (Int) -> Unit,
-) {
-    Column(
-        modifier = Modifier.padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        products.forEach { product ->
-            VerticalProductCard(
-                product = product,
-                isWished = product.id.toString() in wishlist,
-                onWishToggle = { onWishToggle(product.id) },
-            )
-        }
-    }
-    Spacer(modifier = Modifier.height(16.dp))
 }
