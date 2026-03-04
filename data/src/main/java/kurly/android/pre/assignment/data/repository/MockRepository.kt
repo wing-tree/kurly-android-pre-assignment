@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class MockRepository @Inject constructor(
     private val mockService: MockService,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    @param:IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) {
 
     suspend fun getSections(page: Int): Result<SectionResponse> =

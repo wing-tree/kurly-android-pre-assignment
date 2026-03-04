@@ -8,35 +8,13 @@ import kotlinx.coroutines.coroutineScope
 import kurly.android.pre.assignment.data.dto.ProductDto
 import kurly.android.pre.assignment.data.repository.MockRepository
 import kurly.android.pre.assignment.data.repository.WishlistRepository
+import kurly.android.pre.assignment.ui.main.intent.MainSideEffect
+import kurly.android.pre.assignment.ui.main.intent.MainState
+import kurly.android.pre.assignment.ui.main.model.ProductUiModel
+import kurly.android.pre.assignment.ui.main.model.SectionUiModel
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
-
-data class ProductUiModel(
-    val id: Int,
-    val name: String,
-    val image: String,
-    val originalPrice: Int,
-    val discountedPrice: Int? = null,
-    val isSoldOut: Boolean,
-)
-
-data class SectionUiModel(
-    val id: Int,
-    val title: String,
-    val type: String,
-    val products: List<ProductUiModel>,
-)
-
-data class MainState(
-    val sections: List<SectionUiModel> = emptyList(),
-    val isLoading: Boolean = false,
-    val isRefreshing: Boolean = false,
-    val nextPage: Int? = 1,
-    val wishlist: Set<String> = emptySet(),
-)
-
-sealed class MainSideEffect
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
