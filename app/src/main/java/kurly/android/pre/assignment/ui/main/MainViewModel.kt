@@ -71,7 +71,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun refresh() = intent {
-        reduce { state.copy(isRefreshing = true, sections = emptyList(), nextPage = 1) }
+        reduce { state.copy(isRefreshing = true) }
 
         val result = fetchSections(1)
         if (result != null) {

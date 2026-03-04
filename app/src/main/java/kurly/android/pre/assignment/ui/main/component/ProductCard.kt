@@ -46,13 +46,13 @@ fun HorizontalGridProductCard(
                 contentDescription = product.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(3f / 4f)
+                    .width(150.dp)
+                    .height(200.dp)
                     .clip(RoundedCornerShape(4.dp)),
             )
             IconButton(
                 onClick = onWishToggle,
-                modifier = Modifier.align(Alignment.BottomEnd),
+                modifier = Modifier.align(Alignment.TopEnd),
             ) {
                 Icon(
                     painter = painterResource(
@@ -129,7 +129,7 @@ fun VerticalProductCard(
             )
             IconButton(
                 onClick = onWishToggle,
-                modifier = Modifier.align(Alignment.BottomEnd),
+                modifier = Modifier.align(Alignment.TopEnd),
             ) {
                 Icon(
                     painter = painterResource(

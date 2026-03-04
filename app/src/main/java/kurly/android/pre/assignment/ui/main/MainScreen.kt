@@ -1,6 +1,7 @@
 package kurly.android.pre.assignment.ui.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -175,7 +177,10 @@ private fun GridSection(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         for (rowIndex in 0 until 2) {
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth().horizontalScroll(state = rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 for (colIndex in 0 until 3) {
                     val index = rowIndex * 3 + colIndex
                     if (index < items.size) {
@@ -184,10 +189,8 @@ private fun GridSection(
                             product = product,
                             isWished = product.id.toString() in wishlist,
                             onWishToggle = { onWishToggle(product.id) },
-                            modifier = Modifier.weight(1f),
+                            modifier = Modifier.width(150.dp),
                         )
-                    } else {
-                        Spacer(modifier = Modifier.weight(1f))
                     }
                 }
             }
