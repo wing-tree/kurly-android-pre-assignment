@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.convention.plugin.android.library)
     alias(libs.plugins.convention.plugin.dagger.hilt)
     alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
 }
