@@ -139,7 +139,7 @@ private fun SectionDivider() {
         modifier = Modifier
             .fillMaxWidth()
             .height(8.dp)
-            .background(Color.Gray),
+            .background(Color.DarkGray),
     )
 }
 
